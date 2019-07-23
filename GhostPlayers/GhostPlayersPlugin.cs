@@ -31,8 +31,11 @@ namespace GhostPlayers
 
         #region Initialize, Dispose
 
-        public override void Initialize() =>
+        public override void Initialize()
+        {
             ServerApi.Hooks.NetSendBytes.Register(this, OnSendBytes, 10000);
+            ServerApi.Hooks.ServerLeave.Register(this, OnServerLeave);
+        }
         
         protected override void Dispose(bool Disposing)
         {
@@ -84,6 +87,16 @@ namespace GhostPlayers
 
             if (!GPAPI.CheckCanSee(seer, seen))
                 args.Handled = true;
+        }
+
+        #endregion
+        #region OnServerLeave
+
+        private void OnServerLeave(LeaveEventArgs args)
+        {
+            int who = args.Who;
+            for (int i = 0; i < Main.maxPlayers; i++)
+                GPAPI.CanSee[who, i] = GPAPI.CanSee[i, who] = true;
         }
 
         #endregion

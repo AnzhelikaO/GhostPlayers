@@ -93,7 +93,8 @@ namespace GhostPlayers
                     || (Observer == byte.MaxValue)
                     || (Target == byte.MaxValue)
                     || (TShock.Players[Observer]?.Active != true)
-                    || (TShock.Players[Target]?.Active != true))
+                    || (TShock.Players[Target]?.Active != true)
+                    || (GPAPI.CanSee[Observer, Target] == CanSee))
                 return;
             if (CanSee)
             {

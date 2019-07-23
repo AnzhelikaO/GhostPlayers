@@ -10,9 +10,49 @@ namespace GhostPlayers
     public static class GPAPI
     {
         internal static bool[,] CanSee = new bool[Main.maxPlayers, Main.maxPlayers];
+        #region All
+
         public static readonly byte[] All = Enumerable.Range(0, Main.maxPlayers)
                                                       .Select(i => (byte)i)
                                                       .ToArray();
+
+        public static byte[] AllExcept(byte Player)
+        {
+            byte[] all = new byte[Main.maxPlayers - 1];
+
+            int a = 0;
+            for (byte i = 0; i < Main.maxPlayers; i++)
+                if (i != Player)
+                    all[a++] = i;
+
+            return all;
+        }
+        
+        public static byte[] AllExcept(byte Player1, byte Player2)
+        {
+            byte[] all = new byte[Main.maxPlayers - 2];
+
+            int a = 0;
+            for (byte i = 0; i < Main.maxPlayers; i++)
+                if ((i != Player1) && (i != Player2))
+                    all[a++] = i;
+
+            return all;
+        }
+
+        public static byte[] AllExcept(IEnumerable<byte> Players)
+        {
+            byte[] all = new byte[Main.maxPlayers - Players.Count()];
+
+            int a = 0;
+            for (byte i = 0; i < Main.maxPlayers; i++)
+                if (!Players.Contains(i))
+                    all[a++] = i;
+
+            return all;
+        }
+
+        #endregion
 
         #region CheckCanSee
 

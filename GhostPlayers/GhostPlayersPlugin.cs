@@ -24,7 +24,7 @@ namespace GhostPlayers
         {
             for (int i = 0; i < Main.maxPlayers; i++)
                 for (int j = 0; j < Main.maxPlayers; j++)
-                    GhostPlayersAPI.CanSee[i, j] = true;
+                    GPAPI.CanSee[i, j] = true;
         }
 
         #endregion
@@ -82,7 +82,7 @@ namespace GhostPlayers
                     return;
             }
 
-            if (!GhostPlayersAPI.CheckIfAPlayerCanSeeAnotherPlayer(seer, seen))
+            if (!GPAPI.CheckCanSee(seer, seen))
                 args.Handled = true;
         }
 

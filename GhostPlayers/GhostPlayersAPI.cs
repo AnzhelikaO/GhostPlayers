@@ -7,23 +7,23 @@ using TShockAPI;
 #endregion
 namespace GhostPlayers
 {
-    public static class GhostPlayersAPI
+    public static class GPAPI
     {
         internal static bool[,] CanSee = new bool[Main.maxPlayers, Main.maxPlayers];
         public static readonly byte[] All = Enumerable.Range(0, Main.maxPlayers)
                                                       .Select(i => (byte)i)
                                                       .ToArray();
 
-        #region CheckIfAPlayerCanSeeAnotherPlayer
+        #region CheckCanSee
 
-        public static bool CheckIfAPlayerCanSeeAnotherPlayer(byte Seer, byte Seen) =>
+        public static bool CheckCanSee(byte Seer, byte Seen) =>
             ((Seer == Seen) || (Seer == byte.MaxValue)
             || (Seen == byte.MaxValue) || CanSee[Seer, Seen]);
 
         #endregion
-        #region GetPlayersWhoCanSeeThisPlayer
+        #region WhoCanSee
 
-        public static IEnumerable<byte> GetPlayersWhoCanSeeThisPlayer(byte Player)
+        public static IEnumerable<byte> WhoCanSee(byte Player)
         {
             if ((Player == byte.MaxValue) || (TShock.Players[Player]?.Active != true))
                 yield break;
@@ -33,9 +33,9 @@ namespace GhostPlayers
         }
 
         #endregion
-        #region GetPlayersWhoCanBeSeenByThisPlayer
+        #region SeenBy
 
-        public static IEnumerable<byte> GetPlayersWhoCanBeSeenByThisPlayer(byte Player)
+        public static IEnumerable<byte> SeenBy(byte Player)
         {
             if ((Player == byte.MaxValue) || (TShock.Players[Player]?.Active != true))
                 yield break;
@@ -57,7 +57,7 @@ namespace GhostPlayers
                 return;
             if (CanSee)
             {
-                GhostPlayersAPI.CanSee[Observer, Target] = true;
+                GPAPI.CanSee[Observer, Target] = true;
 
                 NetMessage.SendData(14, Observer, -1, null, Target, 1);
                 NetMessage.SendData(4, Observer, -1, null, Target);
@@ -95,7 +95,7 @@ namespace GhostPlayers
             else
             {
                 NetMessage.SendData(14, Observer, -1, null, Target, 0);
-                GhostPlayersAPI.CanSee[Observer, Target] = false;
+                GPAPI.CanSee[Observer, Target] = false;
             }
         }
 

@@ -21,13 +21,39 @@ namespace GhostPlayers
             || (Seen == byte.MaxValue) || CanSee[Seer, Seen]);
 
         #endregion
+        #region GetPlayersWhoCanSeeThisPlayer
+
+        public static IEnumerable<byte> GetPlayersWhoCanSeeThisPlayer(byte Player)
+        {
+            if ((Player == byte.MaxValue) || (TShock.Players[Player]?.Active != true))
+                yield break;
+            for (byte i = 0; i < Main.maxPlayers; i++)
+                if (CanSee[i, Player] && (TShock.Players[i]?.Active == true))
+                    yield return i;
+        }
+
+        #endregion
+        #region GetPlayersWhoCanBeSeenByThisPlayer
+
+        public static IEnumerable<byte> GetPlayersWhoCanBeSeenByThisPlayer(byte Player)
+        {
+            if ((Player == byte.MaxValue) || (TShock.Players[Player]?.Active != true))
+                yield break;
+            for (byte i = 0; i < Main.maxPlayers; i++)
+                if (CanSee[Player, i] && (TShock.Players[i]?.Active == true))
+                    yield return i;
+        }
+
+        #endregion
         #region SetCanSee
 
         public static void SetCanSee(byte Observer, bool CanSee, byte Target)
         {
             if ((Observer == Target)
-                    || (TShock.Players.ElementAtOrDefault(Observer)?.Active != true)
-                    || (TShock.Players.ElementAtOrDefault(Target)?.Active != true))
+                    || (Observer == byte.MaxValue)
+                    || (Target == byte.MaxValue)
+                    || (TShock.Players[Observer]?.Active != true)
+                    || (TShock.Players[Target]?.Active != true))
                 return;
             if (CanSee)
             {

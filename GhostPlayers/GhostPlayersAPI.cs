@@ -101,38 +101,38 @@ namespace GhostPlayers
                 if (Send && (TShock.Players[Observer]?.Active == true)
                          && (TShock.Players[Target]?.Active == true))
                 {
-                    NetMessage.SendData(14, Observer, -1, null, Target, 1);
-                    NetMessage.SendData(4, Observer, -1, null, Target);
-                    NetMessage.SendData(13, Observer, -1, null, Target);
-                    NetMessage.SendData(16, Observer, -1, null, Target);
-                    NetMessage.SendData(30, Observer, -1, null, Target);
-                    NetMessage.SendData(45, Observer, -1, null, Target);
-                    NetMessage.SendData(42, Observer, -1, null, Target);
-                    NetMessage.SendData(50, Observer, -1, null, Target);
+                    NetMessage.SendData((int)PacketTypes.PlayerActive, Observer, -1, null, Target, 1);
+                    NetMessage.SendData((int)PacketTypes.PlayerInfo, Observer, -1, null, Target);
+                    NetMessage.SendData((int)PacketTypes.PlayerUpdate, Observer, -1, null, Target);
+                    NetMessage.SendData((int)PacketTypes.PlayerHp, Observer, -1, null, Target);
+                    NetMessage.SendData((int)PacketTypes.TogglePvp, Observer, -1, null, Target);
+                    NetMessage.SendData((int)PacketTypes.PlayerTeam, Observer, -1, null, Target);
+                    NetMessage.SendData((int)PacketTypes.PlayerMana, Observer, -1, null, Target);
+                    NetMessage.SendData((int)PacketTypes.PlayerBuff, Observer, -1, null, Target);
 
                     Player plr = Main.player[Target];
 
                     for (int index = 0; index < 59; ++index)
-                        NetMessage.SendData(5, Observer, -1, null, Target, index,
-                            plr.inventory[index].prefix);
+                        NetMessage.SendData((int)PacketTypes.PlayerSlot, Observer, -1, null, Target,
+                            index, plr.inventory[index].prefix);
 
                     for (int index = 0; index < plr.armor.Length; ++index)
-                        NetMessage.SendData(5, Observer, -1, null, Target, 59 + index,
-                            plr.armor[index].prefix);
+                        NetMessage.SendData((int)PacketTypes.PlayerSlot, Observer, -1, null, Target,
+                            59 + index, plr.armor[index].prefix);
 
                     for (int index = 0; index < plr.dye.Length; ++index)
-                        NetMessage.SendData(5, Observer, -1, null, Target,
+                        NetMessage.SendData((int)PacketTypes.PlayerSlot, Observer, -1, null, Target,
                             59 + plr.armor.Length + index, plr.dye[index].prefix);
 
                     for (int index = 0; index < plr.miscEquips.Length; ++index)
-                        NetMessage.SendData(5, Observer, -1, null, Target,
+                        NetMessage.SendData((int)PacketTypes.PlayerSlot, Observer, -1, null, Target,
                             59 + plr.armor.Length + plr.dye.Length + index,
-                                plr.miscEquips[index].prefix);
+                            plr.miscEquips[index].prefix);
 
                     for (int index = 0; index < plr.miscDyes.Length; ++index)
-                        NetMessage.SendData(5, Observer, -1, null, Target,
-                            59 + plr.armor.Length + plr.dye.Length
-                            + plr.miscEquips.Length + index, plr.miscDyes[index].prefix);
+                        NetMessage.SendData((int)PacketTypes.PlayerSlot, Observer, -1, null, Target,
+                            59 + plr.armor.Length + plr.dye.Length + plr.miscEquips.Length + index,
+                            plr.miscDyes[index].prefix);
                 }
             }
             else

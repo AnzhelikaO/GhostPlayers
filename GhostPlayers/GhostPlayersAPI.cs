@@ -109,6 +109,8 @@ namespace GhostPlayers
                     NetMessage.SendData((int)PacketTypes.PlayerTeam, Observer, -1, null, Target);
                     NetMessage.SendData((int)PacketTypes.PlayerMana, Observer, -1, null, Target);
                     NetMessage.SendData((int)PacketTypes.PlayerBuff, Observer, -1, null, Target);
+                    NetMessage.SendData((int)PacketTypes.SyncLoadout, Observer, -1, null, Target,
+                        Main.player[Target].CurrentLoadoutIndex);
 
                     Player plr = Main.player[Target];
 

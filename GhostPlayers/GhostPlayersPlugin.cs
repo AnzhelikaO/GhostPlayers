@@ -59,7 +59,7 @@ namespace GhostPlayers
                 case 50: case 51: case 55: case 58: case 62: case 66: case 80:
                 case 84: case 95: case 96: case 99: case 102: case 115: case 117:
                 case 118: case 120: case 121: case 124: case 125: case 128:
-                case 134: case 135: case 139:
+                case 134: case 135: case 139: case 147:
                     seen = args.Buffer[bOffset];
                     break;
                 case 22: case 24: case 29: case 70:

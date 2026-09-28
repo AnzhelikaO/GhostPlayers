@@ -62,15 +62,15 @@ namespace GhostPlayers
                 case 134: case 135: case 139: case 147:
                     seen = args.Buffer[bOffset];
                     break;
-                case 22: case 24: case 29: case 70:
+                case 22:
                     seen = args.Buffer[bOffset + 2];
                     break;
                 // UpdateNPC with Target (PlayerID), but we still want mobs to be updated
                 //case 23:
                     //seen = args.Buffer[bOffset + 18];
                     //break;
-                case 27:
-                    seen = args.Buffer[bOffset + 18];
+                case 27: case 29: // Spawner byte of the ProjectileKey
+                    seen = args.Buffer[bOffset];
                     break;
                 case 47:
                     seen = args.Buffer[args.Offset + args.Count - 2];

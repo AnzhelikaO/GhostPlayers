@@ -80,7 +80,7 @@ namespace GhostPlayers
                     break;
                 case 65:
                     byte flag = args.Buffer[bOffset];
-                    if (((flag & 1) == 0) && ((flag & 4) == 0))
+                    if ((flag & 1) == 1) // NPC teleportation
                         return;
                     seen = args.Buffer[bOffset + 1];
                     break;
